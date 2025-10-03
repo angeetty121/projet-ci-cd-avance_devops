@@ -1,7 +1,20 @@
-import json from "@eslint/json";
-import { defineConfig } from "eslint/config";
+import js from "@eslint/js";
+import globals from "globals";
 
-export default defineConfig([
-  { ignores: ["**/*.js", "**/*.cjs", "**/*.mjs"] },
-  { files: ["**/*.json"], plugins: { json }, language: "json/json", extends: ["json/recommended"] },
-]);
+export default [
+  js.configs.recommended,
+  {
+    files: ["/*.js"],
+    languageOptions: {
+      ecmaVersion: "latest",
+      sourceType: "commonjs",
+      globals: {
+        ...globals.node,
+        ...globals.jest, // ✅ Ajout des globals Jest (test, expect, describe…)
+      },
+    },
+    rules: {
+      // tes règles perso ici si besoin
+    },
+  },
+];
